@@ -19,45 +19,48 @@ else
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>ショップ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品一覧</title>
 </head>
 <body>
-<?php
-    try {
-        $dsn='mysql:dbname=shop;host=localhost;charset=utf8';
-        $user='root';
-        $password='';
-        $dbh=new PDO($dsn,$user,$password);
-        $dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-        $sql='SELECT code,name,typenumber FROM mst_number WHERE 1';
-        $stmt=$dbh->prepare($sql);
-        $stmt->execute();
-        $dbh=null;
+    <?php
+        // $user = 'root';
+        // $password = 'root';
+        // $dbName = 'shop';
+        // $host = 'localhost';
+        // $dsn = "mysql:host={$host};dbname={$dbName};charset=utf8";
+        try {
+            // $pdo = new PDO($dsn, $user, $password);
+            // $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+            // $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $dsn='mysql:dbname=shop;host=localhost;charset=utf8';
+            $user='root';
+            $password='';
+            $dbh=new PDO($dsn,$user,$password);
+            $dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+            $sql='SELECT code,name,typenumber FROM mst_number WHERE 1';
+            $stmt=$dbh->prepare($sql);
+            $stmt->execute();
+            $dbh=null;
 
-        print '商品一覧<br /><br />';
+            foreach ($result as $row) {
+                if(!$row['typenumber']){
+                    print '<a href="">';
+                    print $row['name'];
+                    print '</a>';
+                }
+            }
 
-    while(true) {
-        $rec=$stmt->fetch(PDO::FETCH_ASSOC);
-        if($rec==false) {
-            break;
-        }
-
-    print '<a href="shop_list.php?procode='.$rec['code'].'">';
-    print $rec['name'];
-    print '</a>';
-    print '<br />';
-    }
-
-    print '<br />';
-    print '<a href="shop_cartlook.php">カートを見る</a><br />';
-    } catch (Exception $e) {
-         print 'ただいま障害により大変ご迷惑をお掛けしております。';
-         exit();
-    }
-?>
-
+            } catch (Exception $e) {
+                echo '<span class="エラーがありました。</span><br>';
+                echo $e->getMessage();
+                exit();
+            }
+            
+    ?>
+    
 </body>
 </html>
