@@ -1,70 +1,63 @@
-<?php session_start(); ?>
 <?php
-    //データベース接続
-    $user = 'phpuser2';
-    $password = '1234';
-    $dbName = 'shop';
-    $host = 'localhost';
-    $dsn = "mysql:host={$host};dbname={$dbName};charset=utf8";
-    try {
-        $pdo = new PDO($dsn, $user, $password);
-            $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (Exception $e) {
-            echo '<span class="エラーがありました。</span><br>';
-            echo $e->getMessage();
-            exit();
-        }
+session_start();
+session_regenerate_id(true);
+if(isset($_SESSION['member_login'])==false){
+    print 'ようこそゲスト様　';
+    print '<a href="member_login.html">会員ログイン</a><br />';
+    print '<br />';
+}
+
+else
+
+{
+    print 'ようこそ　';
+    print $_SESSION['member_name'];
+    print ' 様　';
+    print '<a href="member_logout.php">ログアウト</a><br />';
+    print '<br />';
+}
 ?>
 
 <!DOCTYPE html>
-<html lang="ja">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>メニュー</title>
+    <title>ショップ</title>
 </head>
 <body>
-    <header>
-        <h1>メニュー</h1>
+<?php
+    try {
+        $dsn='mysql:dbname=shop;host=localhost;charset=utf8';
+        $user='root';
+        $password='';
+        $dbh=new PDO($dsn,$user,$password);
+        $dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+        $sql='SELECT code,name,typenumber FROM mst_number WHERE 1';
+        $stmt=$dbh->prepare($sql);
+        $stmt->execute();
+        $dbh=null;
 
-        <?php
-        if (!(isset($_SESSION['dat_member']))) {
-        ?>
-        <a href="member_login.html">ログイン</a>
-        <a href="shop_cartlook.php">カート</a>
-        <?php
-        }
-        ?>
+        print '商品一覧<br /><br />';
 
-        <?php
-        if (isset($_SESSION['dat_member'])) {
-        ?>
-        <a href="member_logout.php">ログアウト</a>
-        <a href="shop_cartlook.php">カート</a>
-        <?php
+    while(true) {
+        $rec=$stmt->fetch(PDO::FETCH_ASSOC);
+        if($rec==false) {
+            break;
         }
-        ?>
-    </header>
-    <main>
 
-    <?php
-    $sql = 'SELECT * FROM dat_sales_product';
-    $stm = $pdo->prepare($sql);
-    $stm->execute();
-    $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-    foreach ($result as $row) {
-        if(!$row['code']){
-    ?>
-        <a href="shop_list_type.php?id=<?= $row['code']?>">
-    <?php
-            echo "{$row['name']}";
-    ?>
-        </a>
-    <?php
-        }
+    print '<a href="shop_list.php?procode='.$rec['code'].'">';
+    print $rec['name'];
+    print '</a>';
+    print '<br />';
     }
-    ?>
-    </main>
+
+    print '<br />';
+    print '<a href="shop_cartlook.php">カートを見る</a><br />';
+    } catch (Exception $e) {
+         print 'ただいま障害により大変ご迷惑をお掛けしております。';
+         exit();
+    }
+?>
+
 </body>
 </html>
