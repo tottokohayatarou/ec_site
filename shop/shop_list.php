@@ -27,39 +27,44 @@ else
 </head>
 <body>
     <?php
-        // $user = 'root';
-        // $password = 'root';
-        // $dbName = 'shop';
-        // $host = 'localhost';
-        // $dsn = "mysql:host={$host};dbname={$dbName};charset=utf8";
         try {
-            // $pdo = new PDO($dsn, $user, $password);
-            // $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-            // $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $dsn='mysql:dbname=shop;host=localhost;charset=utf8';
-            $user='root';
-            $password='';
-            $dbh=new PDO($dsn,$user,$password);
+            $pro_code = $_GET['procode'];
+            
+            $dsn = 'mysql:dbname=shop;host=localhost;charset=utf8';
+            $user = 'root';
+            $password = '';
+            $dbh = new PDO($dsn,$user,$password);
             $dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-            $sql='SELECT code,name,typenumber FROM mst_number WHERE 1';
-            $stmt=$dbh->prepare($sql);
-            $stmt->execute();
-            $dbh=null;
-
-            foreach ($result as $row) {
-                if(!$row['typenumber']){
-                    print '<a href="">';
-                    print $row['name'];
-                    print '</a>';
+            $sql = 'SELECT code,name,gazou,typenumber FROM mst_product WHERE typenumber=?';
+            $stmt = $dbh->prepare($sql);
+            $data[] = $pro_code;
+            $stmt->execute($data);
+            $dbh = null;
+            
+            while(true) {
+                $rec = $stmt->fetch(PDO::FETCH_ASSOC);
+                if($rec !== false){
+                $pro_gazou_name=$rec['gazou'];
                 }
-            }
-
-            } catch (Exception $e) {
-                echo '<span class="エラーがありました。</span><br>';
-                echo $e->getMessage();
-                exit();
+                if($pro_gazou_name=='') {
+                    $disp_gazou='';
+                } else {
+                    $disp_gazou='<img src="../product/gazou/'.$pro_gazou_name.'">';
+                }
+                if($rec==false) {
+                    break;
+                }
+                print '<a href="shop_product.php?procode='.$rec['code'].'">';
+                print $rec['name'];
+                print '</a>';
+                print $disp_gazou;
             }
             
+        } catch (Exception $e) {
+            echo '<span class="error">エラーがありました。</span><br>';
+            echo $e->getMessage();
+            exit();
+        }
     ?>
     
 </body>

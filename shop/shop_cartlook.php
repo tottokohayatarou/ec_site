@@ -28,7 +28,7 @@ else
 <body>
 <?php
     $user = 'root';
-    $password = 'root';
+    $password = '';
     $dbName = 'shop';
     $host = 'localhost';
     $dsn = "mysql:host={$host};dbname={$dbName};charset=utf8";
@@ -44,10 +44,19 @@ else
 ?>
 
     <?php
-    if(!empty($_SESSION[''])) {
+    if(!empty($_SESSION['mst_product'])) {
     ?>
     <table>
-        
+        <th>商品</th>
+        <th>価格</th>
+        <?php
+        foreach ($_SESSION['mst_product'] as $code => $product){
+        ?>
+        <td></td>
+        <td></td>
+        <?php
+        }
+        ?>
     </table>
     <?php
     }
