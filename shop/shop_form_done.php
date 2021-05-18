@@ -33,6 +33,9 @@ print '商品は以下の住所に発送させていただきます。<br />';
 print $postal1.'-'.$postal2.'<br />';
 print $address.'<br />';
 print $tel.'<br />';
+print '<a href="menu.php">';
+print 'メニューに戻る';
+print '</a>';
 
 $honbun='';
 $honbun.=$onamae."様\n\nこのたびはご注文ありがとうございました。\n";
@@ -115,21 +118,21 @@ $honbun.="送料は無料です。\n";
 $honbun.="--------------------\n";
 $honbun.="\n";
 $honbun.="代金は以下の口座にお振込ください。\n";
-$honbun.="ろくまる銀行 やさい支店 普通口座 １２３４５６７\n";
+$honbun.="\n";
 $honbun.="入金確認が取れ次第、梱包、発送させていただきます。\n";
 $honbun.="\n";
 $honbun.="□□□□□□□□□□□□□□\n";
-$honbun.="　～安心野菜のろくまる農園～\n";
 $honbun.="\n";
-$honbun.="○○県六丸郡六丸村123-4\n";
+$honbun.="\n";
+$honbun.="\n";
 $honbun.="電話 090-6060-xxxx\n";
-$honbun.="メール info@rokumarunouen.co.jp\n";
+$honbun.="メール info@bunbougu.co.jp\n";
 $honbun.="□□□□□□□□□□□□□□\n";
 //print '<br />';
 //print nl2br($honbun);
 
 $title='ご注文ありがとうございます。';
-$header='From:info@rokumarunouen.co.jp';
+$header='From:info@bunbougu.co.jp';
 $honbun=html_entity_decode($honbun,ENT_QUOTES,'UTF-8');
 mb_language('Japanese');
 mb_internal_encoding('UTF-8');
@@ -140,7 +143,7 @@ $header='From:'.$email;
 $honbun=html_entity_decode($honbun,ENT_QUOTES,'UTF-8');
 mb_language('Japanese');
 mb_internal_encoding('UTF-8');
-mb_send_mail('info@rokumarunouen.co.jp',$title,$honbun,$header);
+mb_send_mail('info@bunbougu.co.jp',$title,$honbun,$header);
 
 }
 catch (Exception $e)

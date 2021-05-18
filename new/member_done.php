@@ -37,7 +37,6 @@ $birth=$post['birth'];
 
 print $onamae.'様<br />';
 
-
 $dsn='mysql:dbname=shop;host=db-mysql.cghwza3ap5uf.us-east-1.rds.amazonaws.com;charset=utf8';
 $user='admin';
 $password='adminpass';
