@@ -154,5 +154,19 @@ catch (Exception $e)
 
 ?>
 <a href="menu.php">メニューに戻る</a>
+<?php
+$_SESSION['cart'] = 1;
+$cart=$_SESSION['cart'];
+$_SESSION['cart'] = $cart;
+unset($_SESSION['cart']);
+$_SESSION['kazu'] = 1;
+$kazu=$_SESSION['kazu'];
+$_SESSION['kazu'] = $kazu;
+unset($_SESSION['kazu']);
+
+print '<a href="menu.php">';
+print 'メニューに戻る';
+print '</a>';
+?>
 </body>
 </html>
