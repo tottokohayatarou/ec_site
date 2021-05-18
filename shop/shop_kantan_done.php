@@ -173,7 +173,8 @@ $_SESSION['kazu'] = 1;
 $kazu=$_SESSION['kazu'];
 $_SESSION['kazu'] = $kazu;
 unset($_SESSION['kazu']);
-
+?>
+<?php 
 print '<a href="menu.php">';
 print 'メニューに戻る';
 print '</a>';
