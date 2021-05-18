@@ -39,6 +39,9 @@ print '商品は以下の住所に発送させていただきます。<br />';
 print $postal1.'-'.$postal2.'<br />';
 print $address.'<br />';
 print $tel.'<br />';
+print '<a href="menu.php">';
+print 'メニューに戻る';
+print '</a>';
 
 $honbun='';
 $honbun.=$onamae."様\n\nこのたびはご注文ありがとうございました。\n";
