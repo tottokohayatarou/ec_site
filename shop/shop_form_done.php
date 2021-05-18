@@ -164,9 +164,6 @@ $kazu=$_SESSION['kazu'];
 $_SESSION['kazu'] = $kazu;
 unset($_SESSION['kazu']);
 
-print '<a href="menu.php">';
-print 'メニューに戻る';
-print '</a>';
 ?>
 </body>
 </html>
