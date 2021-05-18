@@ -161,10 +161,20 @@ catch (Exception $e)
 	exit();
 }
 
+
 ?>
 
 <br />
 <a href="menu.php">商品画面へ</a>
-
+<?php
+$_SESSION['cart'] = 1;
+$cart=$_SESSION['cart'];
+$_SESSION['cart'] = $cart;
+unset($_SESSION['cart']);
+$_SESSION['kazu'] = 1;
+$kazu=$_SESSION['kazu'];
+$_SESSION['kazu'] = $kazu;
+unset($_SESSION['kazu']);
+?>
 </body>
 </html>
