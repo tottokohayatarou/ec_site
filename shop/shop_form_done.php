@@ -33,8 +33,8 @@ print '商品は以下の住所に発送させていただきます。<br />';
 print $postal1.'-'.$postal2.'<br />';
 print $address.'<br />';
 print $tel.'<br />';
-print '<a href="menu.php">';
-print 'メニューに戻る';
+print '<a href="top.php">';
+print 'OK';
 print '</a>';
 
 $honbun='';
@@ -154,16 +154,6 @@ catch (Exception $e)
 
 ?>
 <a href="menu.php">メニューに戻る</a>
-<?php
-$_SESSION['cart'] = 1;
-$cart=$_SESSION['cart'];
-$_SESSION['cart'] = $cart;
-unset($_SESSION['cart']);
-$_SESSION['kazu'] = 1;
-$kazu=$_SESSION['kazu'];
-$_SESSION['kazu'] = $kazu;
-unset($_SESSION['kazu']);
 
-?>
 </body>
 </html>
